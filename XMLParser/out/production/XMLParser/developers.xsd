@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+        <xs:complexType name="Developer">
+            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="Name" type="xs:string"/>
+                <xs:element name="Surname" type="xs:string"/>
+                <xs:element name="Age" type="xs:int"/>
+                <xs:element name="Position" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+
+        <xs:complexType name="Developers">
+            <xs:all>
+                <xs:element name="Developer" type="Developer"/>
+            </xs:all>
+        </xs:complexType>
+    
+        <xs:element name="Developers" type="Developers"/>
+
+</xs:schema>
+
