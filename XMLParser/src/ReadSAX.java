@@ -1,7 +1,7 @@
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-import org.xml.sax.ContentHandler;
+
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.parsers.SAXParser;
@@ -73,10 +73,7 @@ public class ReadSAX implements IParser
         saxParser.parse("src/developers.xml",handler);
         return developersDict;
     }
-    @Override
-    public String getServiceName() {
-        return "SAX parser";
-    }
+
     @Override
     public List<Developers> getDevelopersInfo() throws IOException, SAXException, ParserConfigurationException {
         return parseSAX();

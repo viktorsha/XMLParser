@@ -1,28 +1,28 @@
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
-    public static void main (String[] args) throws IOException, ParserConfigurationException, SAXException, SQLException, TransformerException {
+    private static ServiceLocator Compose()
+    {
+        return ServiceLocator.getInstance()
+                .register(ParserFactory.class, new ParserFactory());
+    }
+
+    public static void main (String[] args) throws Exception {
+        var serviceLocator = Compose();
         CreateXML.createXML();
         System.out.println("Which parser would you like to choose: DOM parser or SAX parser?");
         Scanner input = new Scanner(System.in);
         String choice = input.nextLine();
-        IParser parser = ServiceLocator.getParser(choice);
+        ParserFactory parserFactory = serviceLocator.resolve(ParserFactory.class);
+        IParser parser = parserFactory.create(choice);
         List<Developers> developersInfo = parser.getDevelopersInfo();
         DevelopersRepository repository = new DevelopersRepositoryImpl();
         for (int i = 1; i< developersInfo.size(); i++)
         {
-            System.out.println(developersInfo.get(i));
-            //repository.insert(developersInfo.get(i));
+            repository.insert(developersInfo.get(i));
         }
-        loop: while (choice!="0")
+        loop: while (!choice.equals("0"))
         {
             System.out.println("Which parser would you like to choose:\n\t1.Insert user to database\n\t" +
                     "2.Update user in database\n\t3.Delete user in database\n\t4.Get all developers\n\t" +

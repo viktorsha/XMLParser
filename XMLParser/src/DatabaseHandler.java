@@ -85,10 +85,11 @@ public class DatabaseHandler extends Configs{
 
     public String deleteDeveloper(String id)
     {
-        String delete = "DELETE FROM "+Const.DEVELOPERS_TABLE+" WHERE "+ Const.DEV_ID+"='"+id+"'";
+        String delete = "DELETE FROM "+Const.DEVELOPERS_TABLE+" WHERE "+ Const.DEV_ID+"=?";
         try
         {
             PreparedStatement preparedStatement = getDbConnection().prepareStatement(delete);
+            preparedStatement.setString(1, id);
             preparedStatement.executeUpdate();
             return "Success";
         } catch (SQLException|ClassNotFoundException e) {

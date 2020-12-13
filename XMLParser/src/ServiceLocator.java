@@ -1,15 +1,31 @@
+import java.util.HashMap;
+
 public class ServiceLocator {
-    private static Cache cache = new Cache();
-    public static IParser getParser(String parserType)
+    private static ServiceLocator _instance;
+
+    public static ServiceLocator getInstance()
     {
-        IParser parser = cache.getParser(parserType);
-        if (parser!=null)
+        if (_instance == null)
         {
-            return parser;
+            _instance = new ServiceLocator();
         }
-        InitialContext context = new InitialContext();
-        IParser parser1 = (IParser) context.lookup(parserType);
-        cache.addParser(parser1);
-        return parser1;
+
+        return _instance;
+    }
+
+    private final HashMap<String, Object> _instanceMap = new HashMap<String, Object>();
+    public <T> ServiceLocator register(Class<T> cls, T instance)
+    {
+        _instanceMap.put(cls.getTypeName(), instance);
+
+        return this;
+    }
+
+    public <T> T resolve(Class<T> cls) throws Exception {
+        if (!_instanceMap.containsKey(cls.getTypeName()))
+        {
+            throw new Exception("not registered");
+        }
+        return (T)_instanceMap.get(cls.getTypeName());
     }
 }
