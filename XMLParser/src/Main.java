@@ -20,7 +20,7 @@ public class Main {
         for (int i = 1; i< developersInfo.size(); i++)
         {
             System.out.println(developersInfo.get(i));
-            //repository.insert(developersInfo.get(i));
+            repository.insert(developersInfo.get(i));
         }
         loop: while (choice!="0")
         {
