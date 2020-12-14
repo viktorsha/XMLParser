@@ -4,6 +4,5 @@ There were implemented such design pattern as Singleton, Factory, Service locato
 - Factory was used to create DOM or SAX class instances
 - Service locator was used to return the service instances on demand (parser in my program)
 - Repository was used to include CRUD operations with parsed from XML file data
-- Used Maven to generate a project, configured pom.xml with dependencies and plugins
 
 I've also used JDBC for working with MySQL and manipulate data using it.
